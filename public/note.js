@@ -9,6 +9,25 @@ class Note extends React.Component {
 
     constructor(props){
         super(props);
+        this.state = {
+            IsEdit: false
+        };
+    }
+
+    edit = () => {
+        this.setState({IsEdit: true});
+    }
+
+    cancel = () => {
+        this.setState({IsEdit: false});
+    }
+
+    submit = () => {
+        var that = this;
+        $.post("/save-note", {id: this.props.id, note: this.refs.txt.value}, function(data){        
+            list.setState({mang: data});
+            that.setState({IsEdit: false});
+        });
     }
 
     remove = (name) => {
@@ -19,12 +38,26 @@ class Note extends React.Component {
     }
 
     render() {
-        return (
-            <div className="div-note">
-                {this.props.children}
-                &nbsp;&nbsp;&nbsp;<button onClick={()=>{this.remove(this.props.children);}}>Remove</button>
-            </div>
-        );
+        if(this.state.IsEdit){
+            return (
+                <div className="div-note">
+                    <input type='text' defaultValue={this.props.children} ref='txt'/>
+                    &nbsp;&nbsp;&nbsp;
+                    <button onClick={this.cancel}>Cancel</button>
+                    <button onClick={this.submit}>Save</button>
+                </div>
+            );
+        }
+        else{
+            return (
+                <div className="div-note">
+                    {this.props.children}
+                    &nbsp;&nbsp;&nbsp;
+                    <button onClick={()=>{this.remove(this.props.children);}}>Remove</button>
+                    <button onClick={this.edit}>Edit</button>
+                </div>
+            );
+        }
     }
 }
 
@@ -54,7 +87,7 @@ class List extends React.Component {
                 <button onClick={addNote}>Add</button>
                 {
                     this.state.mang.map(function (value, index) {
-                        return <Note key={index}>{value}</Note>
+                        return <Note key={index} id={index}>{value}</Note>
                     })
                 }
             </div>
@@ -66,7 +99,7 @@ class InputDiv extends React.Component {
 
     save = () => {
         //list.setState({mang: list.state.mang.concat(this.refs.txt.value)});
-        $.post("/save-note", {note: this.refs.txt.value}, function(data){
+        $.post("/add-note", {note: this.refs.txt.value}, function(data){
             list.setState({mang: data});
         });
         ReactDOM.unmountComponentAtNode(document.getElementById("div-add"));
