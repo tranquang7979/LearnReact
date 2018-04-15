@@ -1,37 +1,44 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-var Note = require('./note.jsx');
-var InputDiv = require('./noteform.jsx');
 var createReactClass = require('create-react-class');
-var theList;
+var {connect} = require('react-redux');
 
-function addNote(){
-    ReactDOM.render(<InputDiv list={theList}/>, document.getElementById("div-add"));
-}
+//var Note = require('./note.jsx');
+//var InputDiv = require('./noteform.jsx');
+//updated path in webpack.config.js
+var Note = require('Note');
+var InputDiv = require('NoteForm');
+var {toggle} = require('action');
+
+var theList;
 
 //var List = React.createClass({
 var List = createReactClass({
 
-    getInitialState() {
-        return { mang: [] };
-    },
-    reloadList(data){
-        this.state = { mang: data };
-    },
-    componentDidMount(){
-        theList = this;
-        var that = this;
-        $.post("/get-notes", function(data){
-            that.setState({mang: data});
-        });
+    // getInitialState() {
+    //     return { mang: [] };
+    // },
+    // reloadList(data){
+    //     this.state = { mang: data };
+    // },
+    // componentDidMount(){
+    //     theList = this;
+    //     var that = this;
+    //     $.post("/get-notes", function(data){
+    //         that.setState({mang: data});
+    //     });
+    // },
+    addNote(){
+        var {dispatch} = this.props;
+        dispatch(toggle());
     },
     render() {
         return (
             <div className="div-list">
-                <div id="div-add"></div>
-                <button onClick={addNote}>Add</button>
+                <div id="div-add"><InputDiv/></div>
+                <button onClick={this.addNote}>Add</button>
                 {
-                    this.state.mang.map(function (value, index) {
+                    this.props.mang.map(function (value, index) {
                         return <Note key={index} id={index} list={theList}>{value}</Note>
                     })
                 }
@@ -39,4 +46,6 @@ var List = createReactClass({
         )
     }
 });
-module.exports = List;
+module.exports = connect(function(state){
+    return {mang: state.mang}
+})(List);

@@ -1,33 +1,47 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
+var {connect} = require('react-redux');
+
+var {toggle, removeItem} = require('action');
+
 var Note = createReactClass({
 //var Note = React.createClass({
 
-    getInitialState(){
-        return { IsEdit: false };
-    },
+    // getInitialState(){
+    //     return { IsEdit: false };
+    // },
     edit(){
-        this.setState({IsEdit: true});
+        //this.setState({IsEdit: true});
+        var {dispatch} = this.props;
+        dispatch(toggle());
     },
     cancel(){
-        this.setState({IsEdit: false});
+        var {dispatch} = this.props;
+        dispatch(toggle());
     },
     submit(){
-        var that = this;
-        $.post("/save-note", {id: this.props.id, note: this.refs.txt.value}, function(data){        
-            this.props.list.setState({mang: data});
-            that.setState({IsEdit: false});
-        });
+        var {dispatch, id} = this.props;
+        dispatch({type: 'UPDATE_ITEM', index: id, item: this.refs.txt.value});
+        dispatch(toggle());
+
+        // var that = this;
+        // var {list, id} = this.props;
+        // $.post("/save-note", {id: id, note: this.refs.txt.value}, function(data){        
+        //     list.setState({mang: data});
+        //     that.setState({IsEdit: false});
+        // });
     },
     remove(name){
-        var that = this;
-        $.post("/remove-note", {note: name}, function(data){        
-            list.setState({mang: data});
-        });
+        // var {list} = this.props;
+        // $.post("/remove-note", {note: name}, function(data){        
+        //     list.setState({mang: data});
+        // });
+        var {dispatch, id} = this.props;
+        dispatch(removeItem(id));
     },
     render() {
-        if(this.state.IsEdit){
+        if(this.props.IsEdit){
             return (
                 <div className="div-note">
                     <input type='text' defaultValue={this.props.children} ref='txt'/>
@@ -49,4 +63,6 @@ var Note = createReactClass({
         }
     }
 });
-module.exports = Note;
+module.exports = connect(function(state){
+    return {IsEdit: state.isAdding};
+})(Note);
