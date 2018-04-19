@@ -1,16 +1,34 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var {Router, Route, IndexRoute, hashHistory} = require('react-router');
 var {Provider} = require('react-redux');
 
 //var List = require('./comps/list.jsx');
 //var store = require('./store-config.js');
 //updated path in webpack.config.js
 var List = require('List');
+var Main = require('Main');
+var Nav = require('Nav');
+var Transaction = require('Transaction');
+var Account = require('Account');
+
+// related to Redux
 var store = require('store');
 
 ReactDOM.render(
     <Provider store={store}>
-        <List />
+    <Router history={hashHistory}>
+        <Router pass='/' component={Main}>
+            <IndexRoute component={List}/>
+            <Route path='account' component={Account}/>>
+            <Route path='transaction' component={Transaction}/>>
+        </Router>
+    </Router>
+        {/* <Main/>
+        <Account/>
+        <Nav/>
+        <Transcation/>
+        <List /> */}
     </Provider>,
     document.getElementById("root")
 );
