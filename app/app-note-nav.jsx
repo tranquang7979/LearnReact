@@ -45,6 +45,14 @@ var requireLogin = (nextState, replace, next) => {
     next();
 }
 
+require('style-loader!css-loader!foundation-sites/dist/css/foundation.min.css');
+require('style-loader!css-loader!foundation-sites/dist/css/foundation-float.min.css');
+require('style-loader!css-loader!sass-loader!./css/layout-note.scss')
+
+$(document).ready(() => {
+    $(document).foundation();
+});
+
 ReactDOM.render(
     <Provider store={store}>
         <Router history={hashHistory}>

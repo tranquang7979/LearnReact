@@ -92,5 +92,11 @@ I've found some solution, that works for me. In my opinion, router module is dam
 //-- EXPRESS SESSION https://github.com/expressjs/session
 // npm install express-session --save
 
+//-- FOUNDATION CSS & JAVASCRIPT https://foundation.zurb.com/
+// npm install style-loader css-loader script-loader foundation-sites --save-dev
+
+//-- SASS SCSS
+// npm install node-sass sass-loader --save-dev
+
 https://www.youtube.com/watch?v=QQfhIUQ-teM&index=14&list=PLzrVYRai0riS6mBVG71EEBNm4VtT03y6x
 ---> next: 14

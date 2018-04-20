@@ -27,12 +27,11 @@ var SignIn = createReactClass({
     render() {
         return (
             <div>
+                <h1 className='text-center page-title'>Sign In</h1>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <input type='text' placeholder='Username' ref='username'/>
-                    <br/><br/>
                     <input type='password' placeholder='Password' ref='password'/>
-                    <br/><br/>
-                    <button type='submit'>Sign In</button>
+                    <button type='submit' className='button expanded'>Sign In</button>
                 </form>
             </div>
         )

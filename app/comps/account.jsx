@@ -10,7 +10,7 @@ var Account = createReactClass({
         var {username} = this.props;
         var xhtml = username === null ? <SignIn/> : <AccountInfo/>;
         return (
-            <div>
+            <div className='columns small-10 medium-6 large-4'>
                 {xhtml}
             </div>
         )

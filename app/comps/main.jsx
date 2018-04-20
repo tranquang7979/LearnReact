@@ -12,8 +12,7 @@ var Main = createReactClass({
         var {notification} = this.props;
         var xhtml = notification !== null ? <Notification txt={notification}/> : null;
         return (
-            <div>
-                <h1>Main</h1>
+            <div className='row'>
                 <Nav/>
                 {xhtml}
                 <h3>Content:</h3>

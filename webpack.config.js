@@ -1,11 +1,24 @@
+var webpack = require('webpack');
 module.exports = {
     //entry: './app/app.jsx',
     //entry: './app/app-note.jsx',
-    entry: './app/app-note-nav.jsx',
+    entry: [
+        'script-loader!jquery/dist/jquery.min.js',
+        'script-loader!foundation-sites/dist/js/foundation.min.js',
+        './app/app-note-nav.jsx'
+    ],
     output: {
         path: __dirname,
         filename: './public/bundle.js'
     },
+    externals:{
+        jquery: 'jQuery'
+    },
+    plugins:[
+        new webpack.ProvidePlugin({
+            '$': 'jquery'
+        })
+    ],
     resolve: {
         modules: [__dirname, 'node_modules'],
         alias: {
