@@ -21,7 +21,8 @@ module.exports = {
             Account: __dirname + '/app/comps/account.jsx',
             HomePage: __dirname + '/app/comps/homepage.jsx',
             SignIn: __dirname + '/app/comps/sign-in.jsx',
-            AccountInfo: __dirname + '/app/comps/account-info.jsx'
+            AccountInfo: __dirname + '/app/comps/account-info.jsx',
+            Notification: __dirname + '/app/comps/notification.jsx'
         },
         extensions: ['*','.js','.jsx']
     },

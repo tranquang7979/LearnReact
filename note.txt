@@ -89,5 +89,8 @@ I've found some solution, that works for me. In my opinion, router module is dam
 //-- BODY PARSER
 // npm install body-parser --save
 
-https://www.youtube.com/watch?v=yL8Z3AtzEck&list=PLzrVYRai0riS6mBVG71EEBNm4VtT03y6x&index=9
----> next: 10
+//-- EXPRESS SESSION https://github.com/expressjs/session
+// npm install express-session --save
+
+https://www.youtube.com/watch?v=QQfhIUQ-teM&index=14&list=PLzrVYRai0riS6mBVG71EEBNm4VtT03y6x
+---> next: 14

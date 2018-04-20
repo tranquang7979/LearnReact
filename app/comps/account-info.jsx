@@ -2,12 +2,20 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var createReactClass = require('create-react-class');
 var {connect} = require('react-redux');
+var axios = require('axios');
 
 var AccountInfo = createReactClass({
     handleSubmit(e){
         e.preventDefault();
         var {dispatch} = this.props;
-        dispatch({type:'LOG_OUT'});
+        //dispatch({type:'LOG_OUT'});
+        axios.post('/signOut')
+        .then(res=>{
+            if(res.data === 'LOG_OUT'){
+                dispatch({type:'LOG_OUT'});
+            }
+        })
+        .catch(err => console.log(err));
     },
     render() {
         var {username} = this.props;
